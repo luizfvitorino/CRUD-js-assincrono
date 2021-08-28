@@ -10,20 +10,32 @@ const criaCliente = (nome, email) => {
                 <li><button class="botao-simples botao-simples--excluir" type="button">Excluir</button></li>
             </ul>
         </td> `
-    
+
     linhaCliente.innerHTML = conteudo
     return linhaCliente
 }
 
 const tabela = document.querySelector('[data-tabela]')
 
-const http = new XMLHttpRequest()
-
-http.open('GET', 'http://localhost:3000/profile')
-http.send()
-http.onload = () => {
-    const data = JSON.parse(http.response)
-    data.forEach(elemento => {
-        tabela.appendChild(criaCliente(elemento.nome, elemento.email))
+const listaClientes = () => {
+    const promise = new Promise((resolve, reject) => {
+        const http = new XMLHttpRequest()
+        http.open('GET', 'http://localhost:3000/profile')
+        http.onload = () => {
+            if (http.status <= 400) {
+                resolve(JSON.parse(http.response))
+            } else {
+                reject(JSON.parse(http.response))
+            }
+        }
+        http.send()
     })
+    return promise
 }
+
+listaClientes()
+    .then(data => {
+        data.forEach(elemento => {
+            tabela.appendChild(criaCliente(elemento.nome, elemento.email))
+        })
+    })
