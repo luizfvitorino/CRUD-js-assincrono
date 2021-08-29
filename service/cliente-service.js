@@ -36,7 +36,7 @@ const listaClientes = () => {
     return promise
     */
 
-    return fetch()
+    return fetch(db)
         .then(resposta => resposta.json())
 }
 
