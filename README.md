@@ -2,7 +2,7 @@
 
 ## Sobre
 
-Temos um site de um Petshop que mostra uma lista com clientes e suas informações. Essa lista pode ser acessada, atualizada e seus itens podem ser deletados. Esse sistema **CRUD** (Create, Read, Update, Delete) foi programado com JavaScript em comunicação assíncrona, e funciona em uma **API REST com JSON server instalado localmente**.
+Temos um site de um Petshop que mostra uma lista com clientes e suas informações. Essa lista pode ser acessada, atualizada e seus itens podem ser deletados. Esse sistema **CRUD** (Create, Read, Update, Delete) foi programado com JavaScript em comunicação assíncrona, e funciona em uma **API REST com JSON server instalado localmente**. A aplicação só funciona pelo Live Server no localhost.
 
 ## Projeto
 
