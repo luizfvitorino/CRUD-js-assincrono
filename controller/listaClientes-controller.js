@@ -26,11 +26,11 @@ tabela.addEventListener('click', (evento) => {
     let isBtnExcluir = evento.target.className === "botao-simples botao-simples--excluir"
 
     if (isBtnExcluir) {
-        const tdCliente = evento.target.closest('[data-id]')
-        let id = tdCliente.dataset.id
+        const linhaCliente = evento.target.closest('[data-id]')
+        let id = linhaCliente.dataset.id
         clienteService.deletaCliente(id)
             .then(() => {
-                tdCliente.remove
+                linhaCliente.remove()
             })
     }
 })
