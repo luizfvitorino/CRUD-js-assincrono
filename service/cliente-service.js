@@ -1,4 +1,4 @@
-const db = 'http://localhost:3000/profile'
+const db = `http://localhost:3000/profile`
 
 const listaClientes = () => {
     /* Método sem o usar o fetch()
@@ -38,7 +38,14 @@ const criaCliente = (nome, email) => {
     })
 }
 
+const deletaCliente = (id) => {
+    return fetch(`http://localhost:3000/profile/${id}`, {
+        method: 'DELETE'
+    })
+}
+
 export const clienteService = {
     listaClientes,
-    criaCliente
+    criaCliente,
+    deletaCliente
 }

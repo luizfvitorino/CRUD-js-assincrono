@@ -15,8 +15,9 @@
 }
 
 .botao-simples {
-    border: none;
     background-color: unset;
+    border: none;
+    cursor: pointer;
 }
 
 .botao-simples--adicionar {
