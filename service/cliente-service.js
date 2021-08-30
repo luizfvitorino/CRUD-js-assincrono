@@ -7,7 +7,7 @@ const listaClientes = () => {
         const http = new XMLHttpRequest()
         http.open('GET', db)
         http.onload = () => {
-            if (http.status <= 400) {
+            if (http.status < 400) {
                 resolve(JSON.parse(http.response))
             } else {
                 reject(JSON.parse(http.response))
