@@ -1,32 +1,32 @@
 import { clienteService } from "../service/cliente-service.js"
 
-const criaCliente = (nome, email, id) => {
-    const linhaCliente = document.createElement('tr')
+const createRow = (nome, email, id) => {
+    const newRow = document.createElement('tr')
 
-    const conteudo = `
+    const content = `
         <td class="td" data-td>${nome}</td>
         <td>${email}</td>
         <td>
             <ul class="tabela__botoes-controle">
-                <li><a href="./client-update.html" class="botao-simples botao-simples--editar">Editar</a></li>
+                <li><a href="./client-update.html?id=${id}" class="botao-simples botao-simples--editar">Editar</a></li>
                 <li><button class="botao-simples botao-simples--excluir" type="button">Excluir</button></li>
             </ul>
         </td> `
 
-    linhaCliente.innerHTML = conteudo
-    linhaCliente.dataset.id = id
+    newRow.innerHTML = content
+    newRow.dataset.id = id
 
-    return linhaCliente
+    return newRow
 }
 
-const tabela = document.querySelector('[data-tabela]')
+const table = document.querySelector('[data-tabela]')
 
-tabela.addEventListener('click', (evento) => {
-    evento.preventDefault()
-    let isBtnExcluir = evento.target.className === "botao-simples botao-simples--excluir"
+table.addEventListener('click', (event) => {
+    event.preventDefault()
+    let isDeleteButton = event.target.className === "botao-simples botao-simples--excluir"
 
-    if (isBtnExcluir) {
-        const linhaCliente = evento.target.closest('[data-id]')
+    if (isDeleteButton) {
+        const linhaCliente = event.target.closest('[data-id]')
         let id = linhaCliente.dataset.id
         clienteService.deletaCliente(id)
             .then(() => {
@@ -38,6 +38,6 @@ tabela.addEventListener('click', (evento) => {
 clienteService.listaClientes()
     .then(data => {
         data.forEach(elemento => {
-            tabela.appendChild(criaCliente(elemento.nome, elemento.email, elemento.id))
+            table.appendChild(createRow(elemento.nome, elemento.email, elemento.id))
         })
     })
