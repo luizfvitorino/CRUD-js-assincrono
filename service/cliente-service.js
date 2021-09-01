@@ -19,23 +19,21 @@ const listaClientes = () => {
     */
 
     return fetch(db)
-        .then(resposta => resposta.json())
+        .then(response => response.json())
 }
 
-const criaCliente = (nome, email) => {
+const criaCliente = (name, email) => {
     return fetch(db, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-                nome: nome,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: name,
                 email: email
             })
-    })
-    .then(resposta => {
-        return resposta.body
-    })
+        })
+        .then(response => response.body)
 }
 
 const deletaCliente = (id) => {
@@ -46,12 +44,27 @@ const deletaCliente = (id) => {
 
 const detailCustomer = (id) => {
     return fetch(`http://localhost:3000/profile/${id}`)
-        .then(data => data.json())
+        .then(response => response.json())
+}
+
+const updateCustomer = (id, name, email) => {
+    return fetch(`http://localhost:3000/profile/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: name,
+                email: email
+            })
+        })
+        .then(response => response.json())
 }
 
 export const clienteService = {
     listaClientes,
     criaCliente,
     deletaCliente,
-    detailCustomer
+    detailCustomer,
+    updateCustomer
 }
