@@ -1,10 +1,10 @@
-import { clienteService } from "../service/cliente-service.js"
+import { customerService } from "../service/cliente-service.js"
 
-const createRow = (nome, email, id) => {
+const createRow = (name, email, id) => {
     const newRow = document.createElement('tr')
 
     const content = `
-        <td class="td" data-td>${nome}</td>
+        <td class="td" data-td>${name}</td>
         <td>${email}</td>
         <td>
             <ul class="tabela__botoes-controle">
@@ -23,21 +23,23 @@ const table = document.querySelector('[data-tabela]')
 
 table.addEventListener('click', (event) => {
     event.preventDefault()
-    let isDeleteButton = event.target.className === "botao-simples botao-simples--excluir"
+
+    const isDeleteButton = event.target.className === "botao-simples botao-simples--excluir"
 
     if (isDeleteButton) {
-        const linhaCliente = event.target.closest('[data-id]')
-        let id = linhaCliente.dataset.id
-        clienteService.deletaCliente(id)
+        const customerRow = event.target.closest('[data-id]')
+        const id = customerRow.dataset.id
+
+        customerService.deleteCustomer(id)
             .then(() => {
-                linhaCliente.remove()
+                customerRow.remove()
             })
     }
 })
 
-clienteService.listaClientes()
-    .then(data => {
-        data.forEach(elemento => {
-            table.appendChild(createRow(elemento.nome, elemento.email, elemento.id))
+customerService.listCustomers()
+    .then(customers => {
+        customers.forEach(customer => {
+            table.appendChild(createRow(customer.name, customer.email, customer.id))
         })
     })
