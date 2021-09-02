@@ -25,7 +25,7 @@ const createRow = (name, email, id) => {
 
 const table = document.querySelector('[data-tabela]')
 
-table.addEventListener('click', (event) => {
+table.addEventListener('click', async(event) => {
     event.preventDefault()
 
     const isDeleteButton = event.target.className === "botao-simples botao-simples--excluir"
@@ -35,10 +35,8 @@ table.addEventListener('click', (event) => {
         const customerRow = event.target.closest('[data-id]')
         const id = customerRow.dataset.id
 
-        customerService.deleteCustomer(id) // Deletes the customer from the database
-            .then(() => {
-                customerRow.remove() // Then deletes the customer row from the page without needing to refresh
-            })
+        await customerService.deleteCustomer(id) // Deletes the customer from the database
+        customerRow.remove() // Then deletes the customer row from the page without needing to refresh
     }
 
     if (isEditButton) {
@@ -46,9 +44,12 @@ table.addEventListener('click', (event) => {
     }
 })
 
-customerService.listCustomers()
-    .then(customers => {
-        customers.forEach(customer => {
-            table.appendChild(createRow(customer.name, customer.email, customer.id)) // Whenever the page is refreshed, it creates a row for each customer present in the database
-        })
-    })
+const renderCustomers = async() => {
+    const listCustomers = await customerService.listCustomers()
+
+    listCustomers.forEach(customer => {
+        table.appendChild(createRow(customer.name, customer.email, customer.id))
+    }) // Whenever the page is refreshed, it creates a row for each customer present in the database
+}
+
+renderCustomers()
