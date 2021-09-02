@@ -1,4 +1,4 @@
-import { customerService } from "../service/cliente-service.js"
+import { customerService } from "../service/customer-service.js"
 
 const createRow = (name, email, id) => {
     const newRow = document.createElement('tr') // Creates a new Table Row for the customer
@@ -8,7 +8,7 @@ const createRow = (name, email, id) => {
         <td>${email}</td>
         <td>
             <ul class="tabela__botoes-controle">
-                <li><a href="./client-update.html?id=${id}" class="botao-simples botao-simples--editar">Editar</a></li>
+                <li><a href="./customer-update.html?id=${id}" class="botao-simples botao-simples--editar">Editar</a></li>
                 <li><button class="botao-simples botao-simples--excluir" type="button">Excluir</button></li>
             </ul>
         </td> `

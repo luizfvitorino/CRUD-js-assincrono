@@ -1,4 +1,4 @@
-import { customerService } from "../service/cliente-service.js"
+import { customerService } from "../service/customer-service.js"
 
 const catchURL = new URL(window.location)
 const id = catchURL.searchParams.get('id')

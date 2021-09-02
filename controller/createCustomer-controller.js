@@ -1,4 +1,4 @@
-import { customerService } from "../service/cliente-service.js";
+import { customerService } from "../service/customer-service.js";
 
 const form = document.querySelector(`[data-form]`)
 
@@ -10,6 +10,6 @@ form.addEventListener('submit', (event) => {
 
     customerService.createCustomer(name, email)
         .then(() => {
-            window.location.href = '../pages/register-success.html' // Once the customer is created, it redirects to the registration success page
+            window.location.href = '../pages/create-success.html' // Once the customer is created, it redirects to the registration success page
         })
 })
