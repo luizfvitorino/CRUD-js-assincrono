@@ -1,11 +1,7 @@
 import { customerService } from "../service/customer-service.js"
 
-var rowId
-
 const createRow = (name, email, id) => {
     const newRow = document.createElement('tr') // Creates a new Table Row for the customer
-
-    rowId = id
 
     const content = `
         <td class="td" data-td>${name}</td>
@@ -31,16 +27,16 @@ table.addEventListener('click', async(event) => {
     const isDeleteButton = event.target.className === "botao-simples botao-simples--excluir"
     const isEditButton = event.target.className === "botao-simples botao-simples--editar"
 
-    if (isDeleteButton) {
-        const customerRow = event.target.closest('[data-id]')
-        const id = customerRow.dataset.id
+    const customerRow = event.target.closest('[data-id]')
+    const id = customerRow.dataset.id
 
+    if (isDeleteButton) {
         await customerService.deleteCustomer(id) // Deletes the customer from the database
         customerRow.remove() // Then deletes the customer row from the page without needing to refresh
     }
 
     if (isEditButton) {
-        window.location.href = `./customer-update.html?id=${rowId}`
+        window.location.href = `./customer-update.html?id=${id}`
     }
 })
 
@@ -48,8 +44,8 @@ const renderCustomers = async() => {
     const listCustomers = await customerService.listCustomers()
 
     listCustomers.forEach(customer => {
-        table.appendChild(createRow(customer.name, customer.email, customer.id))
-    }) // Whenever the page is refreshed, it creates a row for each customer present in the database
+            table.appendChild(createRow(customer.name, customer.email, customer.id))
+        }) // Whenever the page is refreshed, it creates a row for each customer present in the database
 }
 
 renderCustomers()
