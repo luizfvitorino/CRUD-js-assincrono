@@ -1,6 +1,9 @@
 const db = `http://localhost:3000/profile`
 
-const listCustomers = () => fetch(db).then(response => response.json()) // Requests/receives the database info and then parses its body text into JSON
+const listCustomers = () => fetch(db).then(response => {
+        if (!response.ok) throw new Error('Não foi possível listar os clientes! Há algo de errado com a requisição.')
+        return response.json()
+    }) // Requests/receives the database info and then parses its body text into JSON
 
 /* This is the code behind FETCH
 
@@ -34,12 +37,20 @@ const createCustomer = (name, email) => {
                 email: email
             })
         })
-        .then(response => response.body) // Returns Response's body
+        .then(response => {
+            if (!response.ok) throw new Error('Não foi possível criar um cliente! Há algo de errado com a requisição.')
+            return response.body
+        }) // Returns Response's body
 }
 
-const deleteCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`, { method:'DELETE' })
+const deleteCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`, { method: 'DELETE' }).then(response => {
+    if (!response.ok) throw new Error('Não foi possível deletar o cliente! Há algo de errado com a requisição.')
+})
 
-const detailCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`).then(response => response.json()) // Requests/receives a customer's info (using its id property) from the database and then parses into JSON
+const detailCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`).then(response => {
+        if (!response.ok) throw new Error('Não foi possível trazer os detalhes do cliente! Há algo de errado com a requisição.')
+        return response.json()
+    }) // Requests/receives a customer's info (using its id property) from the database and then parses into JSON
 
 const updateCustomer = (id, name, email) => {
     return fetch(`http://localhost:3000/profile/${id}`, {
@@ -52,7 +63,10 @@ const updateCustomer = (id, name, email) => {
                 email: email
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error('Não foi possível atualizar o cliente! Há algo de errado com a requisição.')
+            return response.json()
+        })
 }
 
 export const customerService = {
