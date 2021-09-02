@@ -31,8 +31,13 @@ table.addEventListener('click', async(event) => {
     const id = customerRow.dataset.id
 
     if (isDeleteButton) {
-        await customerService.deleteCustomer(id) // Deletes the customer from the database
-        customerRow.remove() // Then deletes the customer row from the page without needing to refresh
+        try {
+            await customerService.deleteCustomer(id) // Deletes the customer from the database
+            customerRow.remove() // Then deletes the customer row from the page without needing to refresh
+        } catch (err) {
+            console.log(err)
+            window.location.href = './error.html'
+        }
     }
 
     if (isEditButton) {
@@ -41,11 +46,16 @@ table.addEventListener('click', async(event) => {
 })
 
 const renderCustomers = async() => {
-    const listCustomers = await customerService.listCustomers()
+    try {
+        const listCustomers = await customerService.listCustomers()
 
-    listCustomers.forEach(customer => {
-            table.appendChild(createRow(customer.name, customer.email, customer.id))
-        }) // Whenever the page is refreshed, it creates a row for each customer present in the database
+        listCustomers.forEach(customer => {
+                table.appendChild(createRow(customer.name, customer.email, customer.id))
+            }) // Whenever the page is refreshed, it creates a row for each customer present in the database
+    } catch (err) {
+        console.log(err)
+        window.location.href = './error.html'
+    }
 }
 
 renderCustomers()

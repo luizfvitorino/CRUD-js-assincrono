@@ -9,6 +9,16 @@
       "name": "Antonio",
       "email": "antonio.jose@bomail.com",
       "id": 2
+    },
+    {
+      "name": "Andre",
+      "email": "andre@bomail.com",
+      "id": 3
+    },
+    {
+      "name": "Natalia",
+      "email": "natal.asilva@email.com",
+      "id": 4
     }
   ]
 }
