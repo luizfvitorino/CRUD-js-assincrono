@@ -1,6 +1,6 @@
 const db = `http://localhost:3000/profile`
 
-const listCustomers = () => fetch(db).then(response => response.json())
+const listCustomers = () => fetch(db).then(response => response.json()) // Requests/receives the database info and then parses its body text into JSON
 
 /* This is the code behind FETCH
 
@@ -34,12 +34,12 @@ const createCustomer = (name, email) => {
                 email: email
             })
         })
-        .then(response => response.body)
+        .then(response => response.body) // Returns Response's body
 }
 
 const deleteCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`, { method:'DELETE' })
 
-const detailCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`).then(response => response.json())
+const detailCustomer = (id) => fetch(`http://localhost:3000/profile/${id}`).then(response => response.json()) // Requests/receives a customer's info (using its id property) from the database and then parses into JSON
 
 const updateCustomer = (id, name, email) => {
     return fetch(`http://localhost:3000/profile/${id}`, {
